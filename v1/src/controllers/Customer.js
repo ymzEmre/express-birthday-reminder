@@ -1,6 +1,14 @@
 const httpStatus = require('http-status');
 const CustomerService = require('../services/CustomerService');
 const ApiError = require('../errors/ApiError');
+// var CronJob = require('cron').CronJob;
+const schedule = require('node-schedule');
+
+// const someDate = new Date('2022-01-18T19:25:28.630Z');
+
+// schedule.scheduleJob(someDate, () => {
+//   console.log('The answer to life, the universe, and everything!');
+// });
 
 class Customer {
   index(req, res) {

@@ -5,7 +5,6 @@ const eventEmitter = require('../scripts/events/eventEmitter');
 const path = require('path');
 const UserService = require('../services/UserService');
 const CustomerService = require('../services/CustomerService');
-
 class User {
   create(req, res) {
     req.body.password = passwordToHash(req.body.password);
@@ -52,8 +51,25 @@ class User {
         })
       );
   }
+  customerList2(req, res) {
+    CustomerService.list2({}, 'birthday')
+      .then((projects) => {
+        const birhtday = [];
+        projects.forEach((project) => {
+          birhtday.push(project.birthday);
+          console.log(birhtday);
+        });
+
+        res.status(httpStatus.OK).send(projects);
+      })
+      .catch(() =>
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
+          error: 'Projeleri getirirken beklenmedik bir hata oluştu.',
+        })
+      );
+  }
   resetPassword(req, res) {
-    new_password = uuid.v4()?.split('-')[0] || `usr-${new Date().getTime()}`;
+    const new_password = uuid.v4()?.split('-')[0] || `usr-${new Date().getTime()}`;
     UserService.updateWhere({ email: req.body.email }, { password: passwordToHash(new_password) })
       .then((updatedUser) => {
         if (!updatedUser)

@@ -13,7 +13,7 @@ router.route('/').post(validate(schemas.createValidation), UserController.create
 router.route('/').patch(authenticate, validate(schemas.updateValidation), UserController.update);
 router.route('/login').post(validate(schemas.loginValidation), UserController.login);
 router.route('/customers').get(authenticate, UserController.customerList);
-
+router.route('/customersa').get(authenticate, UserController.customerList2);
 router.route('/reset-password').post(validate(schemas.resetPasswordValidation), UserController.resetPassword);
 router
   .route('/change-password')
