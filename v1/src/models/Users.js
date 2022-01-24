@@ -6,6 +6,8 @@ const UserSchema = new Mongoose.Schema(
     password: String,
     email: String,
     profile_image: String,
+    reminder_day: Number,
+    reminder_type: String,
   },
   { timestamps: true, versionKey: false }
 );

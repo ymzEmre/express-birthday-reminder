@@ -9,6 +9,7 @@ const createValidation = Joi.object({
 const updateValidation = Joi.object({
   name: Joi.string().min(3),
   email: Joi.string().email().min(8),
+  password: Joi.string().min(8),
 });
 
 const loginValidation = Joi.object({
@@ -24,10 +25,16 @@ const changePasswordValidation = Joi.object({
   password: Joi.string().required().min(8),
 });
 
+const reminderSettingsValidation = Joi.object({
+  reminder_day: Joi.number().max(30).min(0),
+  reminder_type: Joi.string(),
+});
+
 module.exports = {
   createValidation,
   updateValidation,
   loginValidation,
   resetPasswordValidation,
   changePasswordValidation,
+  reminderSettingsValidation,
 };

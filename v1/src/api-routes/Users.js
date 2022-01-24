@@ -10,14 +10,12 @@ const router = express.Router();
 
 router.get('/', UserController.index);
 router.route('/').post(validate(schemas.createValidation), UserController.create);
+router.route('/reminder-settings').patch(authenticate, validate(schemas.reminderSettingsValidation), UserController.update);
 router.route('/').patch(authenticate, validate(schemas.updateValidation), UserController.update);
 router.route('/login').post(validate(schemas.loginValidation), UserController.login);
 router.route('/customers').get(authenticate, UserController.customerList);
-router.route('/customersa').get(authenticate, UserController.customerList2);
 router.route('/reset-password').post(validate(schemas.resetPasswordValidation), UserController.resetPassword);
-router
-  .route('/change-password')
-  .post(authenticate, validate(schemas.changePasswordValidation), UserController.changePassword);
+router.route('/change-password').post(authenticate, validate(schemas.changePasswordValidation), UserController.changePassword);
 router.route('/update-profile-image').post(authenticate, UserController.updateProfileImage);
 router.route('/:id').delete(idChecker(), authenticate, UserController.deleteUser);
 
