@@ -6,8 +6,9 @@ const UserSchema = new Mongoose.Schema(
     password: String,
     email: String,
     profile_image: String,
-    reminder_day: Number,
-    reminder_type: String,
+    reminder_value: { type: String, default: 3 },
+    reminder_type: { type: String, default: 'Day' },
+    reminder_status: { type: Boolean, default: true },
   },
   { timestamps: true, versionKey: false }
 );

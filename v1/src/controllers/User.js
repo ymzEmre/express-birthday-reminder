@@ -72,8 +72,7 @@ class User {
     const new_password = uuid.v4()?.split('-')[0] || `usr-${new Date().getTime()}`;
     UserService.updateWhere({ email: req.body.email }, { password: passwordToHash(new_password) })
       .then((updatedUser) => {
-        if (!updatedUser)
-          return res.status(httpStatus.NOT_FOUND).send({ error: 'Böyle bir kullanıcı bulunmamaktadır' });
+        if (!updatedUser) return res.status(httpStatus.NOT_FOUND).send({ error: 'Böyle bir kullanıcı bulunmamaktadır' });
 
         eventEmitter.emit('send_email', {
           to: updatedUser.email,
@@ -85,18 +84,14 @@ class User {
           message: 'Şifre sıfırlama işlemi için sisteme kayıtlı e-posta adresinize gereken bilgileri gönderdik.',
         });
       })
-      .catch(() =>
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: 'Şifre resetleme sırasında bir problem oluştu.' })
-      );
+      .catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: 'Şifre resetleme sırasında bir problem oluştu.' }));
   }
   update(req, res) {
     UserService.update(req.user?._id, req.body)
       .then((updatedUser) => {
         res.status(httpStatus.OK).send(updatedUser);
       })
-      .catch(() =>
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: 'Güncelleme işlemi sırasında bir problem oluştu.' })
-      );
+      .catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: 'Güncelleme işlemi sırasında bir problem oluştu.' }));
   }
   changePassword(req, res) {
     //!... UI Geldikten sonra Şifre karşılaştırmalarına ilişkin kurallar burada yer alacaktır..
@@ -105,9 +100,7 @@ class User {
       .then((updatedUser) => {
         res.status(httpStatus.OK).send(updatedUser);
       })
-      .catch(() =>
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: 'Güncelleme işlemi sırasında bir problem oluştu.' })
-      );
+      .catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: 'Güncelleme işlemi sırasında bir problem oluştu.' }));
   }
   deleteUser(req, res) {
     if (!req.params?.id) {
@@ -126,16 +119,12 @@ class User {
           message: 'Kayıt Silinmiştir',
         });
       })
-      .catch((e) =>
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: 'Silme işlemi sırasında bir problem oluştu.' })
-      );
+      .catch((e) => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: 'Silme işlemi sırasında bir problem oluştu.' }));
   }
   updateProfileImage(req, res) {
     //! 1 - Resim kontrolü
     if (!req?.files?.profile_image) {
-      return res
-        .status(httpStatus.BAD_REQUEST)
-        .send({ error: 'Bu işlemi yapabilmek için yeterli veriye sahip değilsiniz.' });
+      return res.status(httpStatus.BAD_REQUEST).send({ error: 'Bu işlemi yapabilmek için yeterli veriye sahip değilsiniz.' });
     }
     //! 2 - Upload İşlemi
     extension = path.extname(req.files.profile_image.name);
@@ -147,11 +136,7 @@ class User {
         .then((updatedUser) => {
           res.status(httpStatus.OK).send(updatedUser);
         })
-        .catch((e) =>
-          res
-            .status(httpStatus.INTERNAL_SERVER_ERROR)
-            .send({ error: 'Upload Başarılı fakat kayıt sırasında bir problem oluştu' })
-        );
+        .catch((e) => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: 'Upload Başarılı fakat kayıt sırasında bir problem oluştu' }));
     });
 
     //! 3 - DB Save İşlemi
