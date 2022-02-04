@@ -5,7 +5,7 @@ class ApiError extends Error {
     this.status = statusCode;
   }
   static notFound() {
-    this.message = 'Böyle bir kayıt yoktur';
+    this.message = 'There is no such record';
     this.status = 404;
   }
   static badData() {}

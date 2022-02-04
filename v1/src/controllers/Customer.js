@@ -24,12 +24,12 @@ class Customer {
   update(req, res, next) {
     if (!req.params?.id) {
       return res.status(httpStatus.BAD_REQUEST).send({
-        message: 'ID Bilgisi Eksik.',
+        message: 'ID Information Missing',
       });
     }
     CustomerService.update(req.params?.id, req.body)
       .then((updatedProject) => {
-        if (!updatedProject) return next(new ApiError('Böyle bir kayıt bulunmamaktadır', 404));
+        if (!updatedProject) return next(new ApiError('There is no such record', 404));
         res.status(httpStatus.OK).send(updatedProject);
       })
       .catch((e) => next(new ApiError(e?.message)));
@@ -37,21 +37,21 @@ class Customer {
   deleteProject(req, res) {
     if (!req.params?.id) {
       return res.status(httpStatus.BAD_REQUEST).send({
-        message: 'ID Bilgisi Eksik.',
+        message: 'ID Information Missing',
       });
     }
     CustomerService.delete(req.params?.id)
       .then((deletedItem) => {
         if (!deletedItem) {
           return res.status(httpStatus.NOT_FOUND).send({
-            message: 'Böyle bir kayıt bulunmamaktadır.',
+            message: 'There is no such record',
           });
         }
         res.status(httpStatus.OK).send({
-          message: 'Kayıt Silinmiştir',
+          message: 'Record Deleted',
         });
       })
-      .catch((e) => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: 'Silme işlemi sırasında bir problem oluştu.' }));
+      .catch((e) => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: 'There was a problem deleting' }));
   }
 }
 

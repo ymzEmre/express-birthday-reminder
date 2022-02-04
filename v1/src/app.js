@@ -1,5 +1,4 @@
 const express = require('express');
-const fileUpload = require('express-fileupload');
 const helmet = require('helmet');
 const config = require('./config');
 const loaders = require('./loaders');
@@ -14,10 +13,8 @@ loaders();
 events();
 
 const app = express();
-app.use('/uploads', express.static(path.join(__dirname, './', 'uploads')));
 app.use(express.json());
 app.use(helmet());
-app.use(fileUpload());
 app.use(cors());
 
 app.listen(process.env.APP_PORT, () => {
@@ -27,7 +24,7 @@ app.listen(process.env.APP_PORT, () => {
   app.use('/customersa', CustomerRoutes);
 
   app.use((req, res, next) => {
-    const error = new Error('Aradığınız sayfa bulunmamaktadır...');
+    const error = new Error('The page you are looking for does not exist...');
     error.status = 404;
     next(error);
   });

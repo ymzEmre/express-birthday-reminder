@@ -16,7 +16,6 @@ router.route('/login').post(validate(schemas.loginValidation), UserController.lo
 router.route('/customers').get(authenticate, UserController.customerList);
 router.route('/reset-password').post(validate(schemas.resetPasswordValidation), UserController.resetPassword);
 router.route('/change-password').post(authenticate, validate(schemas.changePasswordValidation), UserController.changePassword);
-router.route('/update-profile-image').post(authenticate, UserController.updateProfileImage);
 router.route('/:id').delete(idChecker(), authenticate, UserController.deleteUser);
 
 module.exports = router;
