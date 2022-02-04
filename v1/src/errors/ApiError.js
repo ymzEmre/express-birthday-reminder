@@ -5,11 +5,10 @@ class ApiError extends Error {
     this.status = statusCode;
   }
   static notFound() {
-    this.message = "Böyle bir kayıt yoktur";
+    this.message = 'Böyle bir kayıt yoktur';
     this.status = 404;
   }
   static badData() {}
 }
 
 module.exports = ApiError;
-// apiError.notFound();

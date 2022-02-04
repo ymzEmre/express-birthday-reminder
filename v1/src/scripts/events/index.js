@@ -16,9 +16,5 @@ module.exports = () => {
       from: process.env.EMAIL_FROM,
       ...emailData,
     });
-
-    console.log('Message sent: %s', info.messageId);
-
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   });
 };

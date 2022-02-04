@@ -1,8 +1,8 @@
-const validate = require('../middlewares/validate'); // validate middleware
+const validate = require('../middlewares/validate');
 const authenticate = require('../middlewares/authenticate');
 const idChecker = require('../middlewares/idChecker');
 
-const schemas = require('../validations/Users'); // validations
+const schemas = require('../validations/Users');
 const express = require('express');
 const UserController = require('../controllers/User');
 
