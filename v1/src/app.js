@@ -31,7 +31,6 @@ app.listen(process.env.APP_PORT, () => {
   console.log('Server started at port ' + process.env.APP_PORT);
   app.use('/users', UserRoutes);
   app.use('/customers', CustomerRoutes);
-  app.use('/customersa', CustomerRoutes);
 
   app.use((req, res, next) => {
     const error = new Error('The page you are looking for does not exist...');
