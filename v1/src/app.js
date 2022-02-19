@@ -12,7 +12,7 @@ const { UserRoutes, CustomerRoutes } = require('./api-routes');
 
 const apiLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 60 minutes
-  max: 50, // Limit each IP to 100 requests per `window` (here, per 60 minutes)
+  max: 100, // Limit each IP to 100 requests per `window` (here, per 60 minutes)
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
@@ -32,7 +32,7 @@ app.listen(process.env.APP_PORT, () => {
   app.use('/users', UserRoutes);
   app.use('/customers', CustomerRoutes);
 
-  app.use((req, res, next) => {
+  app.use((_, _, next) => {
     const error = new Error('The page you are looking for does not exist...');
     error.status = 404;
     next(error);
