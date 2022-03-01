@@ -1,7 +1,6 @@
 const httpStatus = require('http-status');
 const CustomerService = require('../services/CustomerService');
 const ApiError = require('../errors/ApiError');
-const schedule = require('node-schedule');
 
 class Customer {
   index(req, res) {

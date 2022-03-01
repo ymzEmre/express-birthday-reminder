@@ -32,7 +32,7 @@ app.listen(process.env.APP_PORT, () => {
   app.use('/users', UserRoutes);
   app.use('/customers', CustomerRoutes);
 
-  app.use((_, _, next) => {
+  app.use((req, res, next) => {
     const error = new Error('The page you are looking for does not exist...');
     error.status = 404;
     next(error);
