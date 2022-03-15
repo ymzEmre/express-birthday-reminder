@@ -10,6 +10,8 @@ const rateLimit = require('express-rate-limit');
 const errorHandler = require('./middlewares/errorHandler');
 const { UserRoutes, CustomerRoutes } = require('./api-routes');
 
+const port = process.env.PORT || 3000;
+
 const apiLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 60 minutes
   max: 100, // Limit each IP to 100 requests per `window` (here, per 60 minutes)
@@ -27,7 +29,7 @@ app.use(compression());
 app.use(helmet());
 app.use(cors());
 
-app.listen(process.env.APP_PORT, () => {
+app.listen(port, () => {
   console.log('Server started at port ' + process.env.APP_PORT);
   app.use('/users', UserRoutes);
   app.use('/customers', CustomerRoutes);
