@@ -27,8 +27,8 @@ const changePasswordValidation = Joi.object({
 
 const reminderSettingsValidation = Joi.object({
   reminder_status: Joi.boolean(),
-  reminder_day: Joi.number().max(30).min(0),
-  reminder_value: Joi.string(),
+  reminder_type: Joi.string(),
+  reminder_value: Joi.number(),
 });
 
 module.exports = {
