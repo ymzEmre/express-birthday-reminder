@@ -7,7 +7,7 @@ db.once('open', () => {
 });
 
 const connectDB = async () => {
-  await Mongoose.connect('mongodb+srv://ymzemre:ymzEmre!m77@birthday-reminder.i5kod.mongodb.net/birthday-reminder?retryWrites=true&w=majority', {
+  await Mongoose.connect(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
