@@ -7,13 +7,16 @@ const CustomerService = require('../services/CustomerService');
 class User {
   create(req, res) {
     req.body.password = passwordToHash(req.body.password);
-    UserService.create(req.body)
-      .then((response) => {
-        res.status(httpStatus.CREATED).send(response);
-      })
-      .catch((e) => {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e);
-      });
+    UserService.findOne({ email: req.body.email }).then((user) => {
+      if (user) return res.status(httpStatus.CONFLICT).send({ message: 'User already exists' });
+      UserService.create(req.body)
+        .then((response) => {
+          res.status(httpStatus.CREATED).send(response);
+        })
+        .catch((e) => {
+          res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e);
+        });
+    });
   }
   login(req, res) {
     req.body.password = passwordToHash(req.body.password);
