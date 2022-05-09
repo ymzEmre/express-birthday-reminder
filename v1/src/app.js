@@ -6,11 +6,12 @@ const loaders = require('./loaders');
 const events = require('./scripts/events');
 var cors = require('cors');
 const rateLimit = require('express-rate-limit');
+require('dotenv').config();
 
 const errorHandler = require('./middlewares/errorHandler');
 const { UserRoutes, CustomerRoutes } = require('./api-routes');
 
-const port = process.env.PORT || 3000;
+const port = process.env.APP_PORT || 5000;
 
 const apiLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 60 minutes
@@ -30,7 +31,7 @@ app.use(helmet());
 app.use(cors());
 
 app.listen(port, () => {
-  console.log('Server started at port ' + process.env.APP_PORT);
+  console.log('Server started at port ' + port);
   app.use('/users', UserRoutes);
   app.use('/customers', CustomerRoutes);
 
