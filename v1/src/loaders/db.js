@@ -7,10 +7,13 @@ db.once('open', () => {
 });
 
 const connectDB = async () => {
-  await Mongoose.connect(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  await Mongoose.connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_NAME}.i5kod.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  );
 };
 
 module.exports = {
